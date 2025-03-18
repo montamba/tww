@@ -203,6 +203,130 @@
             
         }
     </style>
+
+    <style>
+
+        .mcon{
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            place-items: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+        }
+
+        .tcon{padding-left: 20px;
+            padding-top: 50px ;
+            min-width: 600px;
+            max-width: 600px;
+            height: 500px;
+            background: blue;
+            border: 15px solid transparent;
+            border-image: url("img/border/b1.gif") 15% stretch;
+            
+            
+            overflow: hidden;
+        }
+
+        .scon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 100px;
+            min-width: fit-content ;
+            overflow: hidden;
+
+            transform: translateX(20px);
+            transition: 300ms;
+        }
+
+
+        .consign{
+            background: #00DDFF;
+            border: 5px solid black;
+            border-radius: 20px;
+            width: 500px;
+            height: 400px;
+        }
+
+        .consign form{
+            position: relative;
+            display: flex;
+            height: inherit;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .consign form > div:first-child{
+            width: 100%;
+            height: 40px;
+            background:black;
+            position: absolute;top: 0;
+            
+        }
+
+        button.x{
+            color: red;
+            position: absolute;top: 0;left: 0;
+            font-size: large;
+            background: black;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 2px solid white;
+            transition: 500ms;
+        }
+
+        button.x:hover{
+            color: white;
+            position: absolute;top: 0;left: 0;
+            font-size: small;
+            background: rgba(255, 0, 0, 0.5);
+            border-radius: 50px;
+            width: 35px;
+            height: 35px;
+            text-align: center;
+            border: 2px solid red;
+            transform: rotate(360deg);
+            transition: 500ms;
+        }
+
+        .consign form > div:first-child >h1{
+            font-size: larger;
+            color: white;
+            text-align: center;
+            
+        }
+
+        .consign form input{
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .consign form input[type="text"],.consign form input[type="password"]{
+            width: 60%;
+        }
+
+        @media (max-width:700px){
+
+            .mcon{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+            }
+            .tcon{
+                transform: scale(0.5);
+            }
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -211,8 +335,8 @@
         </div>
 
         <div>
-            <button>Login</button>
-            <button>Signup</button>
+            <button class="sign">Login</button>
+            <button class="sign">Signup</button>
         </div>
     </nav>
 
@@ -329,6 +453,57 @@
         
     </section>
 
+    <div class="mcon">
+        <div class="tcon">
+            <div class="scon" id="scon">
+                <div class="consign" >
+                    <form action="">
+                        <div><h1>Sign In</h1></div>
+                        <button onclick="shw()" type="button" class="x">x</button>
+                        <input type="text" placeholder="Enter name">
+                        <input class="passs" type="password" placeholder="Enter password">
+                        <input class="passs" type="password" placeholder="Confirm password">
+                        <div>
+                            <label>Show password:</label><input class="shw" type="checkbox">
+                        </div>
+                        <input type="submit">
+                        <p><a href="#" onclick="loginsign('Login', false)">Already has an Account? Log In</a></p>
+                        <div>
+                        <input type="submit" value="signin With google">
+                        <input type="submit" value="signin with facebook">
+            
+                        </div>
+                    </form>
+                </div>
+    
+                <div class="consign">
+                    <form action="">
+                        <div><h1>Log In</h1></div>
+                        <button onclick="shw()" type="button" class="x">x</button>
+                        <input type="text" placeholder="Enter name">
+                        <input class="passs" type="password" placeholder="Enter password">
+                        <div>
+                            <label >Show password:</label><input class="shw" type="checkbox">
+                        </div>
+                        <input type="submit">
+                        <p><a href="#" onclick="loginsign('Signup', false)">Already has an Account? Sign In</a></p>
+                        <div>
+                        <input type="submit" value="signin With google">
+                        <input type="submit" value="signin with facebook">
+            
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        
+        
+
+
+    </div>
+
 
 
 
@@ -344,6 +519,47 @@
         }
 
         setInterval(im, 1500)
+
+
+        let a = document.querySelectorAll(".shw");
+        a.forEach(ab=>{
+            ab.addEventListener("click",()=>{
+                let b = document.querySelectorAll(".passs");
+                b.forEach(
+                    (aa)=>{
+                        aa.type = (a.checked)?"text":"password";
+                    }
+                );
+            })
+        })
+
+        function shw(){
+            let n =document.querySelector(".mcon");
+            n.style.display = (n.style.display === "grid") ? "none" : "grid";
+
+        }
+
+        function loginsign(text, s){
+            let scon = document.getElementById("scon");
+                if(text == "Login"){
+                    scon.style.transform = "translateX("+-580+"px)";  
+                }else{
+                    scon.style.transform = "translateX("+20+"px)";  
+                }
+                if(s){
+                    shw();
+                }
+
+        }
+
+        let b = document.querySelectorAll(".sign");
+        b.forEach(ele =>{
+            ele.addEventListener("click",() =>{
+                let text = ele.innerText;
+                loginsign(text, true);    
+                
+            })
+        })
     </script>
     
 </body>
